@@ -50,7 +50,7 @@ defmodule EctoBootMigration do
     :crypto,
     :ssl,
     :postgrex,
-    :ecto
+    :ecto_sql
   ]
 
   @doc """
@@ -140,7 +140,7 @@ defmodule EctoBootMigration do
       |> Enum.reduce([], fn repo, acc ->
         log("Starting repo: #{inspect(repo)}")
 
-        case repo.start_link(pool_size: 2) do
+        case repo.start_link(pool_size: 10) do
           {:ok, pid} ->
             log("Started repo: pid = #{inspect(pid)}")
             [pid | acc]
